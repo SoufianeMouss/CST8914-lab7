@@ -29,21 +29,28 @@
         <h1>Feedback form</h1>
     <form>
         <div class="control">
-          <label>Full name <span class="required">*</span></label><input id="name" name="name" type="text" />
+          <!-- We associate the label with the input using for and id and we add aria-label for screen readers -->
+          <label for="name">Full name <span class="required" aria-required="true">*<span aria-label="required" style="display:none;">required</span></span></label></span></label><input id="name" name="name" type="text" aria-label="Enter your full name"/>
         </div>
         <div class="control">
-          <label>Biography</label><textarea id="biography" name="biography" type="text"></textarea>
+          <label for="biography">Biography</label>
+          <!-- We associate the label with the input using for and id and we add aria-label for screen readers -->
+          <textarea id="biography" name="biography" type="text" aria-label="Enter your biography"></textarea>
+          <br/>
           <span>Include examples on your skills in JavaScript.</span>
         </div>
-        
-          <div>Gender</div>
+        <!-- We group the gender inside fieldset -->
+        <fieldset style="width: 300px;">  
+          <legend>Gender</legend>
           <div class="control">
-            <input id="gender_male" name="gender" type="radio" value="male" /><label>Male</label>
+            <!-- We add gender aria-label for screen readers -->
+            <input id="gender_male" name="gender" type="radio" value="male" aria-label="Choose your gender, Male"/><label>Male</label>
           </div>
           <div class="control">
-            <input id="gender_female" name="gender" type="radio" value="female" /><label>Female</label>
+            <!-- We add gender aria-label for screen readers -->
+            <input id="gender_female" name="gender" type="radio" value="female" aria-label="Choose your gender, Female"/><label>Female</label>
           </div>
-        
+        </fieldset>
         <div class="control">
           <input id="accept_agbs" name="accept_agbs" type="checkbox" value="1" /><label>I accept the terms and conditions</label>
         </div>
@@ -92,7 +99,8 @@
               $referencedElement = $input;
             }
       // R.G. hint: fix next line ;)
-            $error = $('<a>' + message + '</a>');
+        // this line creates a link that when clicked focuses the invalid input
+            $error = $('<a class="error" href="' + $referencedElement.attr('id')+'">'+ message + '</a>');
             $error.click(function (e) {
               // If we rely on the link's href pointing to the input's ID, it doesn't trigger forms mode in screen readers
               $referencedElement.focus();
